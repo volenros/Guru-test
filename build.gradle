@@ -7,15 +7,21 @@ repositories {
 }
 
 dependencies {
-    testImplementation (
-            "com.codeborne:selenide:6.19.1",
-            "org.junit.jupiter:junit-jupiter:5.9.3")
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    implementation("com.codeborne:selenide:6.19.1")
+    implementation("org.junit.jupiter:junit-jupiter:5.9.3")
+    implementation("org.assertj:assertj-core:3.27.6")
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks.register("QA_GURU") {
+    doLast {
+        println("QA GURU is the best learning platform for QA engineers!")
+    }
+
+    doFirst {
+        println("Let's rock!")
+    }
 }

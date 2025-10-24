@@ -1,9 +1,9 @@
 import com.codeborne.selenide.*;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import helpers.BaseTest;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import pages.VerifyPage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -11,21 +11,21 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class QaPlaygroundTest {
-
-    @BeforeAll
-    static void setup() {
-        Configuration.baseUrl = "https://qaplayground.dev/apps";
-        Configuration.pageLoadStrategy = "eager";
-    }
+public class QaPlaygroundTest extends BaseTest {
 
     @Test
     void verifyAccount() {
-        open("/verify-account"); // Arrange
+        VerifyPage verifyPage = new VerifyPage();
 
-        $$(".code").asFixedIterable().forEach(element -> element.setValue("9")); // Act
+        verifyPage.open();
+        verifyPage.enterCode("9");
+        String infoText = verifyPage.getInfoText();
 
-        $(".info").shouldHave(text("Success")); // Assert
+        new VerifyPage()
+                .open()
+                .getHeaderComponent();
+
+        assertEquals("Success", infoText);
     }
 
     @Test
@@ -33,7 +33,13 @@ public class QaPlaygroundTest {
         open("/multi-level-dropdown");
 
         $$(".nav-item").last().click();
-//        $$(".menu-item").asFixedIterable().stream().filter(element -> element.text().equals("Settings")).findFirst().get().click();
+//        $$(".menu-item")
+//        .asFixedIterable()
+//        .stream()
+//        .filter(element -> element.text().equals("Settings"))
+//        .findFirst()
+//        .get()
+//        .click();
         $$(".menu-item").find(text("Settings")).click();
 
         $$(".menu-item").find(text("JavaScript")).click();
