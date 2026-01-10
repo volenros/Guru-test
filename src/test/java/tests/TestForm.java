@@ -11,12 +11,11 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestForm {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setupSelenideEnv() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
 
     }
 
