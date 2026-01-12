@@ -16,7 +16,6 @@ public class TestForm {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-
     }
 
     @Test
