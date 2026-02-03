@@ -1,18 +1,33 @@
 package pages;
 
 import pages.components.CalendarComponent;
-import pages.locators.PracticeFormLocators;
-
-import static com.codeborne.selenide.Selectors.byText;
+import pages.components.ResultModalComponent;
+import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selectors.byText;
 
 public class PracticeFormPage {
 
     private final CalendarComponent calendar = new CalendarComponent();
+    private final ResultModalComponent resultModal = new ResultModalComponent();
+
+    private final SelenideElement firstNameInput = $("#firstName");
+    private final SelenideElement lastNameInput = $("#lastName");
+    private final SelenideElement emailInput = $("#userEmail");
+    private final SelenideElement genderWrapper = $("#genterWrapper");
+    private final SelenideElement phoneInput = $("#userNumber");
+    private final SelenideElement dateInput = $("#dateOfBirthInput");
+    private final SelenideElement subjectInput = $("#subjectsContainer input");
+    private final SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
+    private final SelenideElement uploadPictureInput = $("#uploadPicture");
+    private final SelenideElement addressInput = $("#currentAddress");
+    private final SelenideElement stateSelect = $("#state");
+    private final SelenideElement citySelect = $("#city");
+    private final SelenideElement stateCityWrapper = $("#stateCity-wrapper");
+    private final SelenideElement submitButton = $("#submit");
 
     public PracticeFormPage openPage() {
         open("/automation-practice-form");
-        removeBanners();
         return this;
     }
 
@@ -23,66 +38,66 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage setFirstName(String value) {
-        $(PracticeFormLocators.FIRST_NAME).setValue(value);
+        firstNameInput.setValue(value);
         return this;
     }
 
     public PracticeFormPage setLastName(String value) {
-        $(PracticeFormLocators.LAST_NAME).setValue(value);
+        lastNameInput.setValue(value);
         return this;
     }
 
     public PracticeFormPage setEmail(String value) {
-        $(PracticeFormLocators.EMAIL).setValue(value);
+        emailInput.setValue(value);
         return this;
     }
 
     public PracticeFormPage selectGender(String gender) {
-        $(PracticeFormLocators.GENDER_WRAPPER).$(byText(gender)).click();
+        genderWrapper.$(byText(gender)).click();
         return this;
     }
 
     public PracticeFormPage setPhone(String value) {
-        $(PracticeFormLocators.PHONE).setValue(value);
+        phoneInput.setValue(value);
         return this;
     }
 
     public PracticeFormPage setBirthDate(String day, String month, String year) {
-        $(PracticeFormLocators.DATE_INPUT).click();
+        dateInput.click();
         calendar.setDate(day, month, year);
         return this;
     }
 
     public PracticeFormPage setSubject(String subject) {
-        $(PracticeFormLocators.SUBJECT_INPUT).setValue(subject).pressEnter();
+        subjectInput.setValue(subject).pressEnter();
         return this;
     }
 
     public PracticeFormPage selectHobby(String hobby) {
-        $(PracticeFormLocators.HOBBIES_WRAPPER).$(byText(hobby)).click();
+        hobbiesWrapper.$(byText(hobby)).click();
         return this;
     }
 
     public PracticeFormPage uploadPicture(String fileName) {
-        $(PracticeFormLocators.UPLOAD_PICTURE).uploadFromClasspath(fileName);
+        uploadPictureInput.uploadFromClasspath(fileName);
         return this;
     }
 
     public PracticeFormPage setAddress(String address) {
-        $(PracticeFormLocators.ADDRESS).setValue(address);
+        addressInput.setValue(address);
         return this;
     }
 
     public PracticeFormPage selectStateAndCity(String state, String city) {
-        $(PracticeFormLocators.STATE).click();
-        $(PracticeFormLocators.STATE_CITY_WRAPPER).$(byText(state)).click();
-        $(PracticeFormLocators.CITY).click();
-        $(PracticeFormLocators.STATE_CITY_WRAPPER).$(byText(city)).click();
+        stateSelect.click();
+        stateCityWrapper.$(byText(state)).click();
+        citySelect.click();
+        stateCityWrapper.$(byText(city)).click();
         return this;
     }
 
-    public ResultModalPage submit() {
-        $(PracticeFormLocators.SUBMIT).click();
-        return new ResultModalPage();
+    public ResultModalComponent submit() {
+        submitButton.click();
+        return resultModal;
     }
 }

@@ -1,16 +1,22 @@
 package tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPage;
 
 public class TestForm extends BaseTest {
 
+    private PracticeFormPage formPage;
+
+    @BeforeEach
+    void setUp() {
+        formPage = new PracticeFormPage();
+    }
+
     @Test
     void practiceFormTest() {
-
-        PracticeFormPage formPage = new PracticeFormPage();
-
         formPage.openPage()
+                .removeBanners()
                 .setFirstName("Artur")
                 .setLastName("Chernov")
                 .setEmail("volenros@mail.ru")
@@ -23,7 +29,6 @@ public class TestForm extends BaseTest {
                 .setAddress("Gaivinskaya 30A")
                 .selectStateAndCity("NCR", "Delhi")
                 .submit()
-
                 .checkResult("Student Name", "Artur Chernov")
                 .checkResult("Student Email", "volenros@mail.ru")
                 .checkResult("Gender", "Male")
